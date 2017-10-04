@@ -47,8 +47,8 @@ public class MySqlHanddlerTest {
         System.out.println("Test MySqlHanddler Tarjeta No existe.");
         MySqlHanddler instance = new MySqlHanddler();
         instance.Conectar();
-        double ExpResulst = 0;
-        double result = instance.ExisteTarjeta(new Tarjeta("20"));
+        int ExpResulst = 0;
+        int result = instance.ExisteTarjeta(new Tarjeta("20"));
         assertEquals(ExpResulst,result);
     }
 
@@ -60,8 +60,8 @@ public class MySqlHanddlerTest {
         System.out.println("Test MySqlHanddler Tarjeta No existe.");
         MySqlHanddler instance = new MySqlHanddler();
         instance.Conectar();
-        double ExpResulst = 0;
-        double result = instance.ExisteCuenta(new Cuenta("20"));
+        int ExpResulst = 0;
+        int result = instance.ExisteCuenta(new Cuenta("20"));
         assertEquals(ExpResulst,result);
     }
 
