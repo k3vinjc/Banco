@@ -64,4 +64,21 @@ public class MySqlHanddler {
         }
         return retorno;
     }
+    //Ver que si existe la tarjeta. Si existe retorna 1, en caso que no, retorna 0.
+    public int SaldoTarjeta(Tarjeta tarjeta, double monto){
+        int retorno=0;
+        try{
+            Coneccion=DriverManager.getConnection(CadenaConeccion,"Usuario","1234");
+            Statement stmt=Coneccion.createStatement();  
+            ResultSet rs=stmt.executeQuery("select saldo from cuenta inner join tarjeta on tarjeta.cuenta=cuenta.dbid where tarjeta.numero='"+tarjeta.getNumero()+"'"); 
+            while(rs.next())
+                if(rs.getDouble(1)>=monto){
+                    retorno=1;
+                } 
+            Coneccion.close();  
+        }catch(Exception e){
+            retorno=0; //error
+        }
+        return retorno;
+    }
 }

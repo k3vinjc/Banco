@@ -12,6 +12,8 @@ package com.mycompany.banco;
 public class Tarjeta {
     private String Numero;
     MySqlHanddler MSH;
+    Cuenta cuenta;
+    
     public Tarjeta(String Numero){
         this.Numero=Numero;
         MSH=new MySqlHanddler();
@@ -24,5 +26,8 @@ public class Tarjeta {
     }
     public int ExisteTarjeta(){
         return MSH.ExisteTarjeta(this);
+    }
+    public int SaldoSuficiente(double monto){
+        return MSH.SaldoTarjeta(this, monto);
     }
 }

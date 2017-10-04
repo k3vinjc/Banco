@@ -36,21 +36,30 @@ public class Banco {
             int coneccionTarjeta=tarjeta.Coneccion();
             int coneccionCuenta=cuenta.Coneccion();
             if(coneccionTarjeta==0 && coneccionCuenta==0){
+                ((ObjectNode) rootNode).put("id_Transferecia", "");
                 ((ObjectNode) rootNode).put("status", "1");
                 ((ObjectNode) rootNode).put("descripción", "No se pudo conectar a la base de datos.");
             }else{
                 int ExisteTarjeta=tarjeta.ExisteTarjeta();
                 int ExisteCuenta=cuenta.ExisteCuenta();
                 if(ExisteTarjeta==0){
+                    ((ObjectNode) rootNode).put("id_Transferecia", "");
                     ((ObjectNode) rootNode).put("status", "1");
                     ((ObjectNode) rootNode).put("descripción", "No existe el numero de tarjeta indicado.");
                 }else if(ExisteCuenta==0){
+                    ((ObjectNode) rootNode).put("id_Transferecia", "");
                     ((ObjectNode) rootNode).put("status", "1");
                     ((ObjectNode) rootNode).put("descripción", "No existe el numero de cuenta indicado.");
                 }else{
-                    ((ObjectNode) rootNode).put("status", "0");
-                    ((ObjectNode) rootNode).put("costo_Aduana", "");
-                    ((ObjectNode) rootNode).put("descripción", "Exitoso");
+                    if(tarjeta.SaldoSuficiente(monto)==0){
+                        ((ObjectNode) rootNode).put("id_Transferecia", "");
+                        ((ObjectNode) rootNode).put("status", "1");
+                        ((ObjectNode) rootNode).put("descripción", "La tarjeta no tiene el monto necesario.");
+                    }else{
+                        ((ObjectNode) rootNode).put("id_Transferecia", "");
+                        ((ObjectNode) rootNode).put("status", "0");
+                        ((ObjectNode) rootNode).put("descripción", "Transferencia exitosa");
+                    }
                 }
             }
             return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode);
