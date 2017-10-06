@@ -56,9 +56,16 @@ public class Banco {
                         ((ObjectNode) rootNode).put("status", "1");
                         ((ObjectNode) rootNode).put("descripción", "La tarjeta no tiene el monto necesario.");
                     }else{
-                        ((ObjectNode) rootNode).put("id_Transferecia", "");
-                        ((ObjectNode) rootNode).put("status", "0");
-                        ((ObjectNode) rootNode).put("descripción", "Transferencia exitosa");
+                        int Codigo=tarjeta.Transferencia(cuenta, monto);
+                        if(Codigo==-1){
+                            ((ObjectNode) rootNode).put("id_Transferecia", "");
+                            ((ObjectNode) rootNode).put("status", "1");
+                            ((ObjectNode) rootNode).put("descripción", "No se pudo realizar la transferencia.");
+                        }else{
+                            ((ObjectNode) rootNode).put("id_Transferecia", Codigo);
+                            ((ObjectNode) rootNode).put("status", "0");
+                            ((ObjectNode) rootNode).put("descripción", "Transferencia exitosa");
+                        }
                     }
                 }
             }

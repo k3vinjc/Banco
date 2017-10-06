@@ -69,8 +69,27 @@ public class MySqlHanddlerTest {
      * Test of SaldoTarjeta method, of class MySqlHanddler.
      */
     @Test
-    public void testSaldoTarjeta() {
+    public void testSaldoSuficienteTarjeta() {
         
     }
     
+    @Test
+    public void testCambiarSaldoTarjeta() {
+        System.out.println("Test MySqlHanddler Cambiar saldo de tarjeta.");
+        MySqlHanddler instance = new MySqlHanddler();
+        instance.Conectar();
+        int ExpResulst = 1;
+        int result = instance.CambiarSaldoTarjeta(new Tarjeta("4301879220248723"),59822.20);
+        
+        assertEquals(ExpResulst,result);
+    }
+    @Test
+    public void testSaldoTarjeta(){
+        System.out.println("Test MySqlHanddler saldo de tarjeta.");
+        MySqlHanddler instance = new MySqlHanddler();
+        instance.Conectar();
+        System.out.println("El saldo es: "+instance.SaldoTarjeta(new Tarjeta("4301879220248723")));
+        //int ExpResulst = 1;
+        //int result = instance.CambiarSaldoTarjeta(new Tarjeta("4301879220248723"),59822.20);
+    }
 }
