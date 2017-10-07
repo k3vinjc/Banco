@@ -37,33 +37,33 @@ public class Banco {
             int coneccionCuenta=cuenta.Coneccion();
             if(coneccionTarjeta==0 && coneccionCuenta==0){
                 ((ObjectNode) rootNode).put("id_Transferecia", "");
-                ((ObjectNode) rootNode).put("status", "1");
+                ((ObjectNode) rootNode).put("status", 1);
                 ((ObjectNode) rootNode).put("descripción", "No se pudo conectar a la base de datos.");
             }else{
                 int ExisteTarjeta=tarjeta.ExisteTarjeta();
                 int ExisteCuenta=cuenta.ExisteCuenta();
                 if(ExisteTarjeta==0){
                     ((ObjectNode) rootNode).put("id_Transferecia", "");
-                    ((ObjectNode) rootNode).put("status", "1");
+                    ((ObjectNode) rootNode).put("status", 1);
                     ((ObjectNode) rootNode).put("descripción", "No existe el numero de tarjeta indicado.");
                 }else if(ExisteCuenta==0){
                     ((ObjectNode) rootNode).put("id_Transferecia", "");
-                    ((ObjectNode) rootNode).put("status", "1");
+                    ((ObjectNode) rootNode).put("status", 1);
                     ((ObjectNode) rootNode).put("descripción", "No existe el numero de cuenta indicado.");
                 }else{
                     if(tarjeta.SaldoSuficiente(monto)==0){
                         ((ObjectNode) rootNode).put("id_Transferecia", "");
-                        ((ObjectNode) rootNode).put("status", "1");
+                        ((ObjectNode) rootNode).put("status", 1);
                         ((ObjectNode) rootNode).put("descripción", "La tarjeta no tiene el monto necesario.");
                     }else{
                         int Codigo=tarjeta.Transferencia(cuenta, monto);
                         if(Codigo==-1){
                             ((ObjectNode) rootNode).put("id_Transferecia", "");
-                            ((ObjectNode) rootNode).put("status", "1");
+                            ((ObjectNode) rootNode).put("status", 1);
                             ((ObjectNode) rootNode).put("descripción", "No se pudo realizar la transferencia.");
                         }else{
                             ((ObjectNode) rootNode).put("id_Transferecia", Codigo);
-                            ((ObjectNode) rootNode).put("status", "0");
+                            ((ObjectNode) rootNode).put("status", 0);
                             ((ObjectNode) rootNode).put("descripción", "Transferencia exitosa");
                         }
                     }
@@ -71,7 +71,7 @@ public class Banco {
             }
             return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode);
         }else{
-            ((ObjectNode) rootNode).put("status", "1");
+            ((ObjectNode) rootNode).put("status", 1);
             ((ObjectNode) rootNode).put("descripción", "Los parametros son incorrectos");
             return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode);
         }
